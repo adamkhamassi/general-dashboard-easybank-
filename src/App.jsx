@@ -545,6 +545,18 @@ export default function App() {
     // Offres acceptées
     const offresAcceptees = vary(3.2, 2, 14);
     
+    // Services demandés (variables selon les dates)
+    const servicesDemandes = [
+      { name: 'Crédit Conso', value: vary(32, 8, 15), color: '#ef4444' },
+      { name: 'Crédit Auto', value: vary(23, 6, 16), color: '#3b82f6' },
+      { name: 'Crédit Immo', value: vary(15, 5, 17), color: '#10b981' },
+      { name: 'Leasing Auto', value: vary(11, 4, 18), color: '#f59e0b' },
+      { name: 'Leasing Immo', value: vary(6, 3, 19), color: '#8b5cf6' },
+      { name: 'Leasing Équipement', value: vary(4, 2, 20), color: '#06b6d4' },
+      { name: 'Banc Assurance', value: vary(6, 3, 21), color: '#ec4899' },
+      { name: 'Avance Salaire', value: vary(3, 2, 22), color: '#14b8a6' },
+    ];
+    
     return {
       dateLabel: `${monthName} ${yearName}`,
       utilisateursTotaux: utilisateursTotaux >= 1000 ? `${(utilisateursTotaux / 1000).toFixed(1)}K` : utilisateursTotaux,
@@ -572,6 +584,11 @@ export default function App() {
       rdvEnAttenteRaw: rdvEnAttente,
       offresAcceptees: `${offresAcceptees.toFixed(1)}%`,
       offresAccepteesRaw: offresAcceptees,
+      servicesDemandes: servicesDemandes.map(s => ({
+        ...s,
+        value: s.value,
+        displayValue: `${s.value.toFixed(1)}%`
+      })),
     };
   }, [startDate, endDate]);
 
@@ -658,7 +675,7 @@ export default function App() {
       {/* ===== SERVICES DEMANDÉS ===== */}
       <div style={{ backgroundColor: '#fff', padding: '18px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', marginBottom: '20px' }}>
         <h3 style={{ fontSize: '15px', fontWeight: 'bold', color: '#0f172a', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Target size={18} color="#8b5cf6" /> Services Demandés
+          <Target size={18} color="#8b5cf6" /> Services Demandés - {executiveData.dateLabel}
         </h3>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
@@ -667,55 +684,29 @@ export default function App() {
             <ResponsiveContainer width="100%" height={250}>
               <PieChart>
                 <Pie
-                  data={[
-                    { name: 'Crédit Conso', value: 32, color: '#ef4444' },
-                    { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
-                    { name: 'Crédit Immo', value: 15, color: '#10b981' },
-                    { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
-                    { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
-                    { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
-                    { name: 'Banc Assurance', value: 6, color: '#ec4899' },
-                    { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
-                  ]}
+                  data={executiveData.servicesDemandes}
                   cx="50%"
                   cy="50%"
                   innerRadius={50}
                   outerRadius={90}
                   paddingAngle={2}
                   dataKey="value"
-                  label={({ name, value }) => `${value}%`}
+                  nameKey="name"
+                  label={({ name, value }) => `${value.toFixed(1)}%`}
                   labelLine={true}
                 >
-                  {[
-                    { name: 'Crédit Conso', value: 32, color: '#ef4444' },
-                    { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
-                    { name: 'Crédit Immo', value: 15, color: '#10b981' },
-                    { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
-                    { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
-                    { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
-                    { name: 'Banc Assurance', value: 6, color: '#ec4899' },
-                    { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
-                  ].map((entry, index) => (
+                  {executiveData.servicesDemandes.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `${value}%`} />
+                <Tooltip formatter={(value) => `${value.toFixed(1)}%`} />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
           {/* Barres de progression */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {[
-              { name: 'Crédit Conso', value: 32, color: '#ef4444' },
-              { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
-              { name: 'Crédit Immo', value: 15, color: '#10b981' },
-              { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
-              { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
-              { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
-              { name: 'Banc Assurance', value: 6, color: '#ec4899' },
-              { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
-            ].map((service, index) => (
+            {executiveData.servicesDemandes.map((service, index) => (
               <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ width: '130px', fontSize: '12px', color: '#475569', fontWeight: '500' }}>{service.name}</div>
                 <div style={{ flex: 1, height: '18px', backgroundColor: '#f1f5f9', borderRadius: '9px', overflow: 'hidden', position: 'relative' }}>
@@ -729,7 +720,7 @@ export default function App() {
                     justifyContent: 'flex-end',
                     paddingRight: '6px'
                   }}>
-                    <span style={{ color: '#fff', fontSize: '11px', fontWeight: '600' }}>{service.value}%</span>
+                    <span style={{ color: '#fff', fontSize: '11px', fontWeight: '600' }}>{service.displayValue}</span>
                   </div>
                 </div>
               </div>
