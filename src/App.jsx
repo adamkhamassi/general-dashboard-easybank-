@@ -655,6 +655,89 @@ export default function App() {
         </div>
       </div>
 
+      {/* ===== SERVICES DEMANDÉS ===== */}
+      <div style={{ backgroundColor: '#fff', padding: '18px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', marginBottom: '20px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 'bold', color: '#0f172a', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Target size={18} color="#8b5cf6" /> Services Demandés
+        </h3>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+          {/* Graphique en secteurs */}
+          <div style={{ minHeight: '250px' }}>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={[
+                    { name: 'Crédit Conso', value: 32, color: '#ef4444' },
+                    { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
+                    { name: 'Crédit Immo', value: 15, color: '#10b981' },
+                    { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
+                    { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
+                    { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
+                    { name: 'Banc Assurance', value: 6, color: '#ec4899' },
+                    { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
+                  ]}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={50}
+                  outerRadius={90}
+                  paddingAngle={2}
+                  dataKey="value"
+                  label={({ name, value }) => `${value}%`}
+                  labelLine={true}
+                >
+                  {[
+                    { name: 'Crédit Conso', value: 32, color: '#ef4444' },
+                    { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
+                    { name: 'Crédit Immo', value: 15, color: '#10b981' },
+                    { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
+                    { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
+                    { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
+                    { name: 'Banc Assurance', value: 6, color: '#ec4899' },
+                    { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
+                  ].map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip formatter={(value) => `${value}%`} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Barres de progression */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {[
+              { name: 'Crédit Conso', value: 32, color: '#ef4444' },
+              { name: 'Crédit Auto', value: 23, color: '#3b82f6' },
+              { name: 'Crédit Immo', value: 15, color: '#10b981' },
+              { name: 'Leasing Auto', value: 11, color: '#f59e0b' },
+              { name: 'Leasing Immo', value: 6, color: '#8b5cf6' },
+              { name: 'Leasing Équipement', value: 4, color: '#06b6d4' },
+              { name: 'Banc Assurance', value: 6, color: '#ec4899' },
+              { name: 'Avance Salaire', value: 3, color: '#14b8a6' },
+            ].map((service, index) => (
+              <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '130px', fontSize: '12px', color: '#475569', fontWeight: '500' }}>{service.name}</div>
+                <div style={{ flex: 1, height: '18px', backgroundColor: '#f1f5f9', borderRadius: '9px', overflow: 'hidden', position: 'relative' }}>
+                  <div style={{ 
+                    width: `${service.value}%`, 
+                    height: '100%', 
+                    backgroundColor: service.color, 
+                    borderRadius: '9px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    paddingRight: '6px'
+                  }}>
+                    <span style={{ color: '#fff', fontSize: '11px', fontWeight: '600' }}>{service.value}%</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div style={{ backgroundColor: '#fff', padding: '18px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', marginBottom: '20px' }}>
         <h3 style={{ fontSize: '15px', fontWeight: 'bold', color: '#0f172a', marginBottom: '12px' }}>Entonnoir EasyBank   </h3>
 
