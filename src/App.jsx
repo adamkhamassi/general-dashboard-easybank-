@@ -501,28 +501,157 @@ export default function App() {
     </div>
   );
 
+  // ===== DONNEES EXECUTIVES (VARIABLES) =====
+  const executiveData = useMemo(() => {
+    // Parser les dates sélectionnées
+    const [startY, startM, startD] = startDate.split('-').map(Number);
+    const [endY, endM, endD] = endDate.split('-').map(Number);
+    const start = new Date(startY, startM - 1, startD);
+    const end = new Date(endY, endM - 1, endD);
+    
+    // Calculer un seed basé sur les dates sélectionnées
+    const dateSeed = start.getTime() + end.getTime();
+    const monthName = start.toLocaleString('fr-FR', { month: 'long' });
+    const yearName = start.getFullYear();
+    
+    // Fonction pour faire varier les valeurs selon les dates
+    const vary = (base, variance, seedOffset) => {
+      const seed = (dateSeed / 10000000) + seedOffset;
+      const random = Math.sin(seed) * 10000;
+      const factor = (random - Math.floor(random)) - 0.3; // bias vers positif
+      return base + (variance * factor);
+    };
+    
+    // Utilisateurs
+    const utilisateursTotaux = Math.round(vary(1200, 300, 1));
+    const utilisateursActifs = vary(8.5, 3, 2);
+    // Demandes
+    const demandesTotales = Math.round(vary(3900, 1000, 3));
+    const demandesVariation = vary(12.3, 5, 4);
+    // Partenaires
+    const partenairesActifs = Math.round(vary(156, 30, 5));
+    const partenairesVariation = vary(2.1, 1.5, 6);
+    // Services
+    const servicesDisponibles = Math.round(vary(9, 3, 7));
+    const servicesActifs = vary(0, 15, 8);
+    // Crédits
+    const creditsApprouves = vary(15.7, 5, 9);
+    // Offres
+    const offresTotales = Math.round(vary(2200, 500, 10));
+    const offresGenerees = vary(9.2, 4, 11);
+    // RDV
+    const rdvProgrammes = Math.round(vary(67, 20, 12));
+    const rdvEnAttente = vary(5.4, 3, 13);
+    // Offres acceptées
+    const offresAcceptees = vary(3.2, 2, 14);
+    
+    return {
+      dateLabel: `${monthName} ${yearName}`,
+      utilisateursTotaux: utilisateursTotaux >= 1000 ? `${(utilisateursTotaux / 1000).toFixed(1)}K` : utilisateursTotaux,
+      utilisateursTotauxRaw: utilisateursTotaux,
+      utilisateursActifs: `${utilisateursActifs.toFixed(1)}%`,
+      utilisateursActifsRaw: utilisateursActifs,
+      demandesTotales: demandesTotales >= 1000 ? `${(demandesTotales / 1000).toFixed(1)}K` : demandesTotales,
+      demandesTotalesRaw: demandesTotales,
+      demandesVariation: `${demandesVariation.toFixed(1)}%`,
+      demandesVariationRaw: demandesVariation,
+      partenairesActifs,
+      partenairesVariation: `${partenairesVariation.toFixed(1)}%`,
+      partenairesVariationRaw: partenairesVariation,
+      servicesDisponibles,
+      servicesActifs: `${servicesActifs.toFixed(0)}%`,
+      servicesActifsRaw: servicesActifs,
+      creditsApprouves: `${creditsApprouves.toFixed(1)}%`,
+      creditsApprouvesRaw: creditsApprouves,
+      offresTotales: offresTotales >= 1000 ? `${(offresTotales / 1000).toFixed(1)}K` : offresTotales,
+      offresTotalesRaw: offresTotales,
+      offresGenerees: `${offresGenerees.toFixed(1)}%`,
+      offresGenereesRaw: offresGenerees,
+      rdvProgrammes,
+      rdvEnAttente: `${rdvEnAttente.toFixed(1)}%`,
+      rdvEnAttenteRaw: rdvEnAttente,
+      offresAcceptees: `${offresAcceptees.toFixed(1)}%`,
+      offresAccepteesRaw: offresAcceptees,
+    };
+  }, [startDate, endDate]);
+
   // ===== VUE EXECUTIVE =====
   const renderExecutive = () => (
     <div style={{ marginTop: '12px' }}>
       <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#0f172a', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <Building2 size={24} color="#ef4444" /> Vue Executive
+        <Building2 size={24} color="#ef4444" /> Vue Executive - {executiveData.dateLabel}
       </h2>
        
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px', marginBottom: '18px' }}>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #ef4444' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Période - Leads</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ef4444', margin: '8px 0' }}>{periodTotals.leads}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Leads entrants</p>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Utilisateurs totaux</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ef4444', margin: '8px 0' }}>{executiveData.utilisateursTotaux}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Total inscrits</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #10b981' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Utilisateurs actifs</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#10b981', margin: '8px 0' }}>{executiveData.utilisateursActifs}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #8b5cf6' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Période - Acceptés</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#8b5cf6', margin: '8px 0' }}>{periodTotals.accepted}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Acceptation</p>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Demandes totales</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#8b5cf6', margin: '8px 0' }}>{executiveData.demandesTotales}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Toutes demandes</p>
         </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #06b6d4' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Periode - Eligibles</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#06b6d4', margin: '8px 0' }}>{periodTotals.eligible}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Lead {'->'} Accord Finale</p>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Demandes</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#06b6d4', margin: '8px 0' }}>{executiveData.demandesVariation}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #f59e0b' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Partenaires actifs</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#f59e0b', margin: '8px 0' }}>{executiveData.partenairesActifs}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Banques et agences</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #ec4899' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Partenaires</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ec4899', margin: '8px 0' }}>{executiveData.partenairesVariation}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #3b82f6' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Services disponibles</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#3b82f6', margin: '8px 0' }}>{executiveData.servicesDisponibles}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Services actifs</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #6366f1' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Services</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#6366f1', margin: '8px 0' }}>{executiveData.servicesActifs}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #14b8a6' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Crédits approuvés</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#14b8a6', margin: '8px 0' }}>{executiveData.creditsApprouves}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #f97316' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres totales</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#f97316', margin: '8px 0' }}>{executiveData.offresTotales}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Offres générées</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #84cc16' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#84cc16', margin: '8px 0' }}>{executiveData.offresGenerees}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #0ea5e9' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>RDV programmés</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#0ea5e9', margin: '8px 0' }}>{executiveData.rdvProgrammes}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>En attente</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #a855f7' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>RDV</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#a855f7', margin: '8px 0' }}>{executiveData.rdvEnAttente}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Cette semaine</p>
+        </div>
+        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #ef4444' }}>
+          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres</p>
+          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ef4444', margin: '8px 0' }}>{executiveData.offresAcceptees}</div>
+          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
       </div>
 
