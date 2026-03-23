@@ -840,8 +840,16 @@ export default function App() {
               <span style={{ color: '#ef4444', fontSize: '18px', fontWeight: 'bold' }}>{kpis.delaiLightApplication}h</span>
             </div>
             <div style={{ padding: '12px', backgroundColor: '#f3e8ff', borderRadius: '8px', borderLeft: '4px solid #8b5cf6', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Lead</span>
+              <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Lead - Accepté</span>
               <span style={{ color: '#8b5cf6', fontSize: '18px', fontWeight: 'bold' }}>{kpis.delaiEasyLead}h</span>
+            </div>
+            <div style={{ padding: '12px', backgroundColor: '#fef3c7', borderRadius: '8px', borderLeft: '4px solid #f59e0b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Lead - Inéligible</span>
+              <span style={{ color: '#f59e0b', fontSize: '18px', fontWeight: 'bold' }}>{Math.round(kpis.delaiEasyLead * 0.7)}h</span>
+            </div>
+            <div style={{ padding: '12px', backgroundColor: '#fae8ff', borderRadius: '8px', borderLeft: '4px solid #d946ef', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Lead - Recherche Alt.</span>
+              <span style={{ color: '#d946ef', fontSize: '18px', fontWeight: 'bold' }}>{Math.round(kpis.delaiEasyLead * 0.5)}h</span>
             </div>
             <div style={{ padding: '12px', backgroundColor: '#ecfeff', borderRadius: '8px', borderLeft: '4px solid #06b6d4', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Connect</span>
@@ -851,10 +859,6 @@ export default function App() {
               <span style={{ color: '#475569', fontSize: '12px', fontWeight: '600' }}>Easy Partner</span>
               <span style={{ color: '#10b981', fontSize: '18px', fontWeight: 'bold' }}>{kpis.delaiEasyPartner}h</span>
             </div>
-          </div>
-          <div style={{ marginTop: '12px', padding: '12px', backgroundColor: '#f1f5f9', borderRadius: '8px', textAlign: 'center' }}>
-            <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '4px' }}>Total (moyenne)</div>
-            <div style={{ fontSize: '22px', fontWeight: 'bold', color: '#0f172a' }}>{kpis.delaiMoyenTraitement}h</div>
           </div>
         </div>
 
