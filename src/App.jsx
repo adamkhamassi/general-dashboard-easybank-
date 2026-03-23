@@ -610,30 +610,15 @@ export default function App() {
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#10b981', margin: '8px 0' }}>{executiveData.utilisateursActifs}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #8b5cf6' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Demandes totales</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#8b5cf6', margin: '8px 0' }}>{executiveData.demandesTotales}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Toutes demandes</p>
-        </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #06b6d4' }}>
           <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Demandes</p>
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#06b6d4', margin: '8px 0' }}>{executiveData.demandesVariation}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #f59e0b' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Partenaires actifs</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#f59e0b', margin: '8px 0' }}>{executiveData.partenairesActifs}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Banques et agences</p>
-        </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #ec4899' }}>
           <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Partenaires</p>
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ec4899', margin: '8px 0' }}>{executiveData.partenairesVariation}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
-        </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #3b82f6' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Services disponibles</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#3b82f6', margin: '8px 0' }}>{executiveData.servicesDisponibles}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Services actifs</p>
         </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #6366f1' }}>
           <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Services</p>
@@ -645,30 +630,15 @@ export default function App() {
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#14b8a6', margin: '8px 0' }}>{executiveData.creditsApprouves}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #f97316' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres totales</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#f97316', margin: '8px 0' }}>{executiveData.offresTotales}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Offres générées</p>
-        </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #84cc16' }}>
           <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres</p>
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#84cc16', margin: '8px 0' }}>{executiveData.offresGenerees}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #0ea5e9' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>RDV programmés</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#0ea5e9', margin: '8px 0' }}>{executiveData.rdvProgrammes}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>En attente</p>
-        </div>
         <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #a855f7' }}>
           <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>RDV</p>
           <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#a855f7', margin: '8px 0' }}>{executiveData.rdvEnAttente}</div>
           <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>Cette semaine</p>
-        </div>
-        <div style={{ backgroundColor: '#fff', padding: '14px 16px', borderRadius: '10px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', borderLeft: '4px solid #ef4444' }}>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: '600' }}>Offres</p>
-          <div style={{ fontSize: '28px', fontWeight: 'bold', color: '#ef4444', margin: '8px 0' }}>{executiveData.offresAcceptees}</div>
-          <p style={{ color: '#94a3b8', fontSize: '11px', margin: 0 }}>{executiveData.dateLabel}</p>
         </div>
       </div>
 
